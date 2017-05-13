@@ -1,0 +1,84 @@
+.wrapper-original .element, .wrapper-sorted .element {
+    text-align: center;
+    line-height: 50px;
+    color: #555;
+    font-weight: bold;
+    font-size: 24px;
+    float: left;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    background: #dff0d8;
+    border: 1px solid #d6e9c6;
+    margin-right: 5px;
+}
+
+div.clear {
+    clear: both;
+    height: 10px;
+}
+
+.btn {
+    color: #292b2c;
+    background-color: #fff;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid #ccc;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+.btn:hover {
+    background-color: #e6e6e6;
+}
+
+.btn[disabled] {
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .65;
+}
+
+.btn[disabled]:hover {
+    background-color: #fff;
+}
+
+.label, .dots {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.dots {
+    padding-left: 3px;
+}
+
+.h1 {
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+.alert {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width: 535px;
+}

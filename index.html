@@ -11,7 +11,7 @@
 <body>
 <span class="label h1">Сортировка пузырьком. Графический процесс сортировки целых чисел</span>
 <div class="clear"></div>
-<div class="alert label">
+<div class="info alert label">
     <strong>Правила пользования.</strong>
     <ol>
         <li>Создать набор данных для сортировки.</li>
@@ -33,6 +33,14 @@
 <div id="process" style="display: none;">
     <span class="label"></span><span class="dots"></span>
     <div class="wrapper-sorted"></div>
+    <div class="clear"></div>
+    <div class="notify alert label" style="display: none;">
+        <strong>Процесс сортировки завершен:</strong>
+        <ul>
+            <li>Количество проходов: <span id="count-loop"></span>шт.</li>
+            <li>Количество перестановок: <span id="count-pairs"></span>шт.</li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>

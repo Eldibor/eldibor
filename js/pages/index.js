@@ -1,4 +1,6 @@
 var BlinkInterval = null; //Интервал мигания точек
+var CountSwappedPairs = 0; //Количество перестановок в проходе
+var FullCountSwappedPairs = 0; //Общее количество перестановок
 
 function ViewModel() { //Представление данных и операций интерфейса
     var self = this;
@@ -20,6 +22,9 @@ function ViewModel() { //Представление данных и операц
     };
 
     self.BubbleSortStart = function () { //Общая функция запуска процесса сортировки
+        CountSwappedPairs = 0; //При старте, обнуляем
+        FullCountSwappedPairs = 0; //При старте, обнуляем
+
         $(".btn.create, .btn.sort").attr("disabled", true); //Делаем недоступными кнопки
         $("#process span.label").text("Сортировка данных");
 
@@ -44,12 +49,16 @@ function ViewModel() { //Представление данных и операц
     self.Swap = function (i, j) { //Функция перемещения пары чисел.
         var e = $(".wrapper-sorted .element"); //Текущий набор элементов
         var n = e.length;
+        var CanStopped = false; //Можно ли остановить сортировку не дожидаясь окончания полного перебора
         if (j >= n - 1 - i) { //Аналог условия окончания внутреннего цикла.
             i++;
             j = 0;
+            CanStopped = CountSwappedPairs === 0; //Если за проход не было ни одной перестановки значит данные отсортированы и пора заканчивать
+            FullCountSwappedPairs += CountSwappedPairs;
+            CountSwappedPairs = 0; //Обнуляем счетчик для следующего прохода
         }
 
-        if (i < n - 1) { //Аналог условия окончания внешнего цикла
+        if (i < n - 1 && !CanStopped) { //Аналог условия окончания внешнего цикла
             $(e[j + 1]).css("border", "1px solid #555"); //Рамка вокруг элементов которые обрабатываются
             $(e[j]).css("border", "1px solid #555"); //Рамка вокруг элементов которые обрабатываются
 
@@ -69,6 +78,7 @@ function ViewModel() { //Представление данных и операц
                         $(".wrapper-sorted").empty(); //Очищаем контейнер
                         $(".wrapper-sorted").append(e); //Добавляем новый набор элементов
                         j++;
+                        CountSwappedPairs++;
                         self.Swap(i, j); //Берем следующую пару элементов
                     });
                 } else { //Перемещать элементы не нужно
@@ -82,8 +92,17 @@ function ViewModel() { //Представление данных и операц
             clearInterval(BlinkInterval); //Очищаем интервал мигания точек
             $(".btn.create, .btn.sort").removeAttr("disabled"); //Делаем недоступными кнопки (Возможность повторить процесс).
             $("#process span.label").text("Отсортированый набор данных:");
+            $("#count-pairs").text(FullCountSwappedPairs); //Выводим общее количество перестановок
+            $("#count-loop").text(i - 1); //Выводим общее количество проходов
             $(".dots").empty(); //Убиваем точки
-            $("#process").fadeOut(500).fadeIn(500); //Промигиваем для наглядности. Сортировка окончена
+            $("#process").fadeOut("slow").fadeIn("slow", function () { //Промигиваем для наглядности. Сортировка окончена
+                $("#process div.notify.alert.label").show();
+                setTimeout(function () {
+                    $("#process div.notify.alert.label").fadeOut("slow", function () {
+                        $("#count-pairs, #count-loop").empty(); //Очистим
+                    }); //Скроем результаты сортировки
+                }, 3000);
+            });
         }
     };
 };
